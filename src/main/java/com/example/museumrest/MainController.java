@@ -86,16 +86,16 @@ public class MainController {
     }
 
     private void fillTable() throws IOException, ParseException {
-        /*List<Painting> allP = Api.getPaintings();
+        List<Painting> allP = MuseumApi.getPaintings();
         paintingTable.getItems().clear();
         for (Painting p: allP) {
             paintingTable.getItems().add(p);
         }
 
-        List<Statue> allS = Api.getStatues();
+        List<Statue> allS = MuseumApi.getStatues();
         statueTable.getItems().clear();
         for (Statue s: allS) {
             statueTable.getItems().add(s);
-        }*/
+        }
     }
 }

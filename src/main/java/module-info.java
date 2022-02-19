@@ -4,6 +4,6 @@ module com.example.museumrest {
     requires com.google.gson;
 
 
-    opens com.example.museumrest to javafx.fxml;
+    opens com.example.museumrest to javafx.fxml, com.google.gson;
     exports com.example.museumrest;
 }

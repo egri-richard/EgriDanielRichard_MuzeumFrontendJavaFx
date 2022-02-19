@@ -22,4 +22,16 @@ public class MuseumApi {
         Type type = new TypeToken<List<Painting>>(){}.getType();
         return jsonConvert.fromJson(json,type);
     }
+
+    public static List<Statue> getStatues() throws IOException {
+        Response response = RequestHandler.get(STATUES_URL);
+        String json = response.getContent();
+        Gson jsonConvert = new Gson();
+        if (response.getResponseCode() >= 400){
+            String message = jsonConvert.fromJson(json, ApiError.class).getMessage();
+            throw new IOException(message);
+        }
+        Type type = new TypeToken<List<Statue>>(){}.getType();
+        return jsonConvert.fromJson(json,type);
+    }
 }
