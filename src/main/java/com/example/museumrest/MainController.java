@@ -96,9 +96,37 @@ public class MainController extends Controller {
     public void editItem(ActionEvent actionEvent) {
         int selectedTab = tabPane.getSelectionModel().getSelectedIndex();
         if (selectedTab == 0) {
-
+            int selectedIndex = paintingTable.getSelectionModel().getSelectedIndex();
+            if (selectedIndex == -1) {
+                alert("A módosításhoz előbb válasszon ki egy elemet a táblázatból");
+                return;
+            }
+            Painting toEdit = paintingTable.getSelectionModel().getSelectedItem();
+            try {
+                EditPaintingController edit = (EditPaintingController) newWindow("edit-painting-view.fxml",
+                        "Festmény módosítása", 320, 400);
+                edit.setToEdit(toEdit);
+                edit.getStage().setOnHiding(event -> paintingTable.refresh());
+                edit.getStage().show();
+            } catch (IOException e) {
+                writeError(e);
+            }
         } else {
-
+            int selectedIndex = statueTable.getSelectionModel().getSelectedIndex();
+            if (selectedIndex == -1) {
+                alert("A módosításhoz előbb válasszon ki egy elemet a táblázatból");
+                return;
+            }
+            Statue toEdit = statueTable.getSelectionModel().getSelectedItem();
+            try {
+                EditStatueController edit = (EditStatueController) newWindow("edit-statue-view.fxml",
+                        "Szobor módosítása", 320, 400);
+                edit.setToEdit(toEdit);
+                edit.getStage().setOnHiding(event -> statueTable.refresh());
+                edit.getStage().show();
+            } catch (IOException e) {
+                writeError(e);
+            }
         }
     }
 

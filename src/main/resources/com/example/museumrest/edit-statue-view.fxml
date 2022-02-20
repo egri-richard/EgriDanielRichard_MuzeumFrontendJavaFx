@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.museumrest.EditStatueController">
+    <columnConstraints>
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="200.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <TextField fx:id="tfPerson" GridPane.columnIndex="1" />
+        <Label text="Személy  " />
+        <Label text="Magasság  " GridPane.rowIndex="1" />
+        <Label text="Ár  " GridPane.rowIndex="2" />
+        <Button fx:id="btnEditStatue" minWidth="100.0" mnemonicParsing="false" onAction="#editStatueClick" prefWidth="200.0" text="Módosítás" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+        <Spinner fx:id="spHeight" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory max="1000" min="0" />
+            </valueFactory>
+        </Spinner>
+        <Spinner fx:id="spPrice" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory max="1000000" min="0" />
+            </valueFactory>
+        </Spinner>
+    </children>
+</GridPane>
