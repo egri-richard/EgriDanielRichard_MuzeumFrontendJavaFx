@@ -7,8 +7,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import com.example.museumrest.Controller;
 
-public class MainController {
+public class MainController extends Controller {
 
     @javafx.fxml.FXML
     private TableView<Painting> paintingTable;
@@ -59,9 +60,35 @@ public class MainController {
     public void addItem(ActionEvent actionEvent) {
         int selectedTab = tabPane.getSelectionModel().getSelectedIndex();
         if (selectedTab == 0) {
-            //Api.addPainting();
+            try {
+                Controller add = newWindow("add-painting-view.fxml", "Festmény hozzáadása",
+                        320, 400);
+                add.getStage().setOnCloseRequest(event -> {
+                    try {
+                        fillTable();
+                    } catch (IOException | ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
+                add.getStage().show();
+            } catch (Exception e) {
+                writeError(e);
+            }
         } else {
-            //Api.addStatue();
+            try {
+                Controller add = newWindow("add-statue-view.fxml", "Szobor hozzáadása",
+                        320, 400);
+                add.getStage().setOnCloseRequest(event -> {
+                    try {
+                        fillTable();
+                    } catch (IOException | ParseException e) {
+                        e.printStackTrace();
+                    }
+                });
+                add.getStage().show();
+            } catch (Exception e) {
+                writeError(e);
+            }
         }
     }
 
@@ -79,9 +106,43 @@ public class MainController {
     public void deleteItem(ActionEvent actionEvent) {
         int selectedTab = tabPane.getSelectionModel().getSelectedIndex();
         if (selectedTab == 0) {
-
+            int selectedIndex = paintingTable.getSelectionModel().getSelectedIndex();
+            if (selectedIndex == -1) {
+                alert("A törléshez előbb válasszon ki egy elemet a táblázatból");
+                return;
+            }
+            Painting p = paintingTable.getSelectionModel().getSelectedItem();
+            if (!confirm("Biztos hogy törölni szeretné az alábbi festményt: " + p.getTitle())) {
+                return;
+            }
+            try {
+                boolean sikeres = MuseumApi.deletePainting(p.getId());
+                alert(sikeres ? "Sikeres törlés" : "Sikertelen törlés");
+                fillTable();
+            } catch (IOException e) {
+                writeError(e);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         } else {
-
+            int selectedIndex = statueTable.getSelectionModel().getSelectedIndex();
+            if (selectedIndex == -1) {
+                alert("A törléshez előbb válasszon ki egy elemet a táblázatból");
+                return;
+            }
+            Statue s = statueTable.getSelectionModel().getSelectedItem();
+            if (!confirm("Biztos hogy törölni szeretné az alábbi festményt: " + s.getPerson())) {
+                return;
+            }
+            try {
+                boolean sikeres = MuseumApi.deleteStatue(s.getId());
+                alert(sikeres ? "Sikeres törlés" : "Sikertelen törlés");
+                fillTable();
+            } catch (IOException e) {
+                writeError(e);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 
